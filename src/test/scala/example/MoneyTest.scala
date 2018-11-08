@@ -4,8 +4,11 @@ import org.scalatest._
 
 class MoneyTest extends FunSuite {
   test("Multiplication") {
-    val five: Dollar = new Dollar(5)
-    five.times(2)
-    assert(five.amount == 10)
+    var five = new Dollar(5)
+    var product = five.times(2)
+    assert(product.amount == 10)
+
+    product = five.times(3)
+    assert(product.amount == 15)
   }
 }
