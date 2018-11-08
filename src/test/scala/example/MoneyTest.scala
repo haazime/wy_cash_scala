@@ -12,6 +12,8 @@ class MoneyTest extends FunSuite {
   test("Equality") {
     assert(new Dollar(5) == new Dollar(5))
     assert(new Dollar(5) != new Dollar(6))
+    assert(new Franc(5) == new Franc(5))
+    assert(new Franc(5) != new Franc(6))
   }
 
   test("Franc Multiplication") {
