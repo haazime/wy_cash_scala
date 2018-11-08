@@ -1,6 +1,6 @@
 package example
 
-class Dollar(var amount: Int) {
+class Dollar(private var amount: Int) {
   def times(multiplier: Int): Dollar = {
     return new Dollar(amount * multiplier)
   }
