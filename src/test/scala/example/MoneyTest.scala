@@ -11,4 +11,9 @@ class MoneyTest extends FunSuite {
     product = five.times(3)
     assert(product.amount == 15)
   }
+
+  test("Equality") {
+    assert(new Dollar(5) == new Dollar(5))
+    assert(new Dollar(5) != new Dollar(6))
+  }
 }
