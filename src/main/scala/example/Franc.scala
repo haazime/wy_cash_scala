@@ -1,7 +1,7 @@
 package example
 
-class Franc(amount: Int) extends Money(amount) {
-  def times(multiplier: Int): Franc = {
-    return new Franc(amount * multiplier)
+class Franc(amount: Int, currency: String) extends Money(amount, currency) {
+  def times(multiplier: Int): Money = {
+    Money.franc(amount * multiplier)
   }
 }
