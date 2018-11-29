@@ -16,7 +16,7 @@ class Money(private var amount: Int, val currency: String) extends Expression {
   }
 
   def plus(addend: Money): Expression = {
-    new Money(amount + addend.amount, currency)
+    new Sum(this, addend)
   }
 
   override def equals(other: Any): Boolean = {
