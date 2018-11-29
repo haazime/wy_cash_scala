@@ -36,4 +36,17 @@ class MoneyTest extends FunSuite {
     assert(sum.augend == five)
     assert(sum.addend == five)
   }
+
+  test("Reduce Sum") {
+    val sum: Expression = new Sum(Money.dollar(3), Money.dollar(4))
+    val bank: Bank = new Bank
+    val result: Money = bank.reduce(sum, "USD")
+    assert(result == Money.dollar(7))
+  }
+
+  test("Reduce Money") {
+    val bank: Bank = new Bank
+    val result: Money = bank.reduce(Money.dollar(1), "USD")
+    assert(result == Money.dollar(1))
+  }
 }

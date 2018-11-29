@@ -10,7 +10,7 @@ object Money {
   }
 }
 
-class Money(private var amount: Int, val currency: String) extends Expression {
+class Money(var amount: Int, val currency: String) extends Expression {
   def times(multiplier: Int): Money = {
     new Money(amount * multiplier, currency)
   }
@@ -19,12 +19,16 @@ class Money(private var amount: Int, val currency: String) extends Expression {
     new Sum(this, addend)
   }
 
+  def reduce(to: String): Money = {
+    this
+  }
+
   override def equals(other: Any): Boolean = {
-    if (other.isInstanceOf[Money]) {
-      val that = other.asInstanceOf[Money]
-      this.currency == that.currency && this.amount == that.amount
-    } else {
-      false
+    other match {
+      case that: Money =>
+        this.currency == that.currency && this.amount == that.amount
+      case _ =>
+        false
     }
   }
 }
