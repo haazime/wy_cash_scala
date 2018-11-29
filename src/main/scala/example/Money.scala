@@ -10,13 +10,15 @@ object Money {
   }
 }
 
-abstract class Money(private var amount: Int, val currency: String) {
-  def times(multiplier: Int): Money
+class Money(private var amount: Int, val currency: String) {
+  def times(multiplier: Int): Money = {
+    new Money(amount * multiplier, currency)
+  }
 
   override def equals(other: Any): Boolean = {
     if (other.isInstanceOf[Money]) {
       val that = other.asInstanceOf[Money]
-      this.getClass == that.getClass && this.amount == that.amount
+      this.currency == that.currency && this.amount == that.amount
     } else {
       false
     }

@@ -27,4 +27,8 @@ class MoneyTest extends FunSuite {
     assert(Money.dollar(1).currency == "USD")
     assert(Money.franc(1).currency == "CHF")
   }
+
+  test("Different Class Equality") {
+    assert(new Money(10, "CHF") == Money.franc(10))
+  }
 }
