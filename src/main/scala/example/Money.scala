@@ -10,9 +10,13 @@ object Money {
   }
 }
 
-class Money(private var amount: Int, val currency: String) {
+class Money(private var amount: Int, val currency: String) extends Expression {
   def times(multiplier: Int): Money = {
     new Money(amount * multiplier, currency)
+  }
+
+  def plus(addend: Money): Expression = {
+    new Money(amount + addend.amount, currency)
   }
 
   override def equals(other: Any): Boolean = {
