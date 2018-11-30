@@ -19,8 +19,9 @@ class Money(var amount: Int, val currency: String) extends Expression {
     new Sum(this, addend)
   }
 
-  def reduce(to: String): Money = {
-    this
+  def reduce(bank: Bank, to: String): Money = {
+    val rate: Int = bank.rate(currency, to)
+    new Money(amount / rate, to)
   }
 
   override def equals(other: Any): Boolean = {
@@ -30,5 +31,9 @@ class Money(var amount: Int, val currency: String) extends Expression {
       case _ =>
         false
     }
+  }
+
+  override def toString(): String = {
+    amount + currency
   }
 }

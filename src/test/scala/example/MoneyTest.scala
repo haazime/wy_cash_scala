@@ -49,4 +49,16 @@ class MoneyTest extends FunSuite {
     val result: Money = bank.reduce(Money.dollar(1), "USD")
     assert(result == Money.dollar(1))
   }
+
+  test("Reduce Money Different Currency") {
+    val bank: Bank = new Bank
+    bank.addRate("CHF", "USD", 2)
+
+    val result: Money = bank.reduce(Money.franc(2), "USD")
+    assert(result == Money.dollar(1))
+  }
+
+  test("Identity Rate") {
+    assert(new Bank().rate("USD", "USD") == 1)
+  }
 }
