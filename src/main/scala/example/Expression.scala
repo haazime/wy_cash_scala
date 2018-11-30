@@ -6,7 +6,7 @@ trait Expression {
   def times(multiplier: Int): Expression
 }
 
-class Sum(val augend: Expression, val addend: Expression) extends Expression {
+case class Sum(val augend: Expression, val addend: Expression) extends Expression {
   def plus(addend: Expression): Expression = {
     new Sum(this, addend)
   }
