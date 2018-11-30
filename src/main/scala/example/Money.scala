@@ -15,7 +15,7 @@ class Money(var amount: Int, val currency: String) extends Expression {
     new Money(amount * multiplier, currency)
   }
 
-  override def plus(addend: Expression): Expression = {
+  def plus(addend: Expression): Expression = {
     new Sum(this, addend)
   }
 

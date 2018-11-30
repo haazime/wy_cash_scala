@@ -80,4 +80,14 @@ class MoneyTest extends FunSuite {
     val result: Money = bank.reduce(sum, "USD")
     assert(result == Money.dollar(15))
   }
+
+  test("Sum Times") {
+    val fiveBucks: Expression = Money.dollar(5)
+    val tenFrancs: Expression = Money.franc(10)
+    val bank: Bank = new Bank
+    bank.addRate("CHF", "USD", 2)
+    val sum: Expression = new Sum(fiveBucks, tenFrancs).times(2)
+    val result: Money = bank.reduce(sum, "USD")
+    assert(result == Money.dollar(20))
+  }
 }

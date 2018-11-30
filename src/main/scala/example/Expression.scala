@@ -3,11 +3,16 @@ package example
 trait Expression {
   def reduce(bank: Bank, to: String): Money
   def plus(addend: Expression): Expression
+  def times(multiplier: Int): Expression
 }
 
 class Sum(val augend: Expression, val addend: Expression) extends Expression {
-  override def plus(addend: Expression): Expression = {
+  def plus(addend: Expression): Expression = {
     new Sum(this, addend)
+  }
+
+  def times(multiplier: Int): Expression = {
+    new Sum(augend.times(multiplier), addend.times(multiplier))
   }
 
   def reduce(bank: Bank, to: String): Money = {
