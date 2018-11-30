@@ -1,8 +1,6 @@
 package example
 
-class Bank {
-  private var rates: Map[Pair, Int] = Map.empty
-
+class Bank(private var rates: Map[Pair, Int] = Map.empty) {
   def reduce(source: Expression, to: String): Money = {
     source.reduce(this, to)
   }
