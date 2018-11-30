@@ -10,7 +10,7 @@ object Money {
   }
 }
 
-class Money(var amount: Int, val currency: String) extends Expression {
+case class Money(val amount: Int, val currency: String) extends Expression {
   def times(multiplier: Int): Expression = {
     new Money(amount * multiplier, currency)
   }
@@ -22,15 +22,6 @@ class Money(var amount: Int, val currency: String) extends Expression {
   def reduce(bank: Bank, to: String): Money = {
     val rate: Int = bank.rate(currency, to)
     new Money(amount / rate, to)
-  }
-
-  override def equals(other: Any): Boolean = {
-    other match {
-      case that: Money =>
-        this.currency == that.currency && this.amount == that.amount
-      case _ =>
-        false
-    }
   }
 
   override def toString(): String = {
