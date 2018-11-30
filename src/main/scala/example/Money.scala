@@ -11,11 +11,11 @@ object Money {
 }
 
 class Money(var amount: Int, val currency: String) extends Expression {
-  def times(multiplier: Int): Money = {
+  def times(multiplier: Int): Expression = {
     new Money(amount * multiplier, currency)
   }
 
-  def plus(addend: Money): Expression = {
+  override def plus(addend: Expression): Expression = {
     new Sum(this, addend)
   }
 

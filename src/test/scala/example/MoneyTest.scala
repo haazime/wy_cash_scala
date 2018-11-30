@@ -61,4 +61,13 @@ class MoneyTest extends FunSuite {
   test("Identity Rate") {
     assert(new Bank().rate("USD", "USD") == 1)
   }
+
+  test("Mixed Addition") {
+    val fiveBucks: Expression = Money.dollar(5)
+    val tenFrancs: Expression = Money.franc(10)
+    val bank: Bank = new Bank
+    bank.addRate("CHF", "USD", 2)
+    val result: Money = bank.reduce(fiveBucks.plus(tenFrancs), "USD")
+    assert(result == Money.dollar(10))
+  }
 }
