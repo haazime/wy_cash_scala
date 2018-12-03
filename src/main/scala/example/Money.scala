@@ -20,7 +20,7 @@ case class Money(amount: Int, currency: String) extends Expression {
   }
 
   def reduce(bank: Bank, to: String): Money = {
-    val rate: Int = bank.rate(currency, to)
+    val rate = bank.rate(currency, to)
     new Money(amount / rate, to)
   }
 
