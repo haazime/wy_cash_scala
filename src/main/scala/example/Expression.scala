@@ -6,13 +6,13 @@ trait Expression {
   def times(multiplier: Int): Expression
 }
 
-case class Sum(val augend: Expression, val addend: Expression) extends Expression {
+case class Sum(augend: Expression, addend: Expression) extends Expression {
   def plus(addend: Expression): Expression = {
-    new Sum(this, addend)
+    Sum(this, addend)
   }
 
   def times(multiplier: Int): Expression = {
-    new Sum(augend.times(multiplier), addend.times(multiplier))
+    Sum(augend.times(multiplier), addend.times(multiplier))
   }
 
   def reduce(bank: Bank, to: String): Money = {

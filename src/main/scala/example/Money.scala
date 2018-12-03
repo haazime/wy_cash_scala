@@ -10,13 +10,13 @@ object Money {
   }
 }
 
-case class Money(val amount: Int, val currency: String) extends Expression {
+case class Money(amount: Int, currency: String) extends Expression {
   def times(multiplier: Int): Expression = {
     new Money(amount * multiplier, currency)
   }
 
   def plus(addend: Expression): Expression = {
-    new Sum(this, addend)
+    Sum(this, addend)
   }
 
   def reduce(bank: Bank, to: String): Money = {
