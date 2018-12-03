@@ -4,6 +4,8 @@ import org.scalatest._
 
 class MoneyTest extends FunSuite {
   val bank: Bank = new Bank()
+  bank.addRate("CHF", "USD", 2)
+
   val fiveBucks: Expression = Money.dollar(5)
   val tenFrancs: Expression = Money.franc(10)
 
@@ -54,7 +56,6 @@ class MoneyTest extends FunSuite {
   }
 
   test("Reduce Money Different Currency") {
-    bank.addRate("CHF", "USD", 2)
     assertResult(Money.dollar(1)) {
       bank.reduce(Money.franc(2), "USD")
     }
@@ -65,14 +66,12 @@ class MoneyTest extends FunSuite {
   }
 
   test("Mixed Addition") {
-    bank.addRate("CHF", "USD", 2)
     assertResult(Money.dollar(10)) {
       bank.reduce(fiveBucks.plus(tenFrancs), "USD")
     }
   }
 
   test("Sum Plus Money") {
-    bank.addRate("CHF", "USD", 2)
     val sum: Expression = new Sum(fiveBucks, tenFrancs).plus(fiveBucks)
     assertResult(Money.dollar(15)) {
       bank.reduce(sum, "USD")
@@ -80,7 +79,6 @@ class MoneyTest extends FunSuite {
   }
 
   test("Sum Times") {
-    bank.addRate("CHF", "USD", 2)
     val sum: Expression = new Sum(fiveBucks, tenFrancs).times(2)
     assertResult(Money.dollar(20)) {
       bank.reduce(sum, "USD")
