@@ -10,9 +10,9 @@ class Bank(private var rates: Map[Pair, Int] = Map.empty) {
   }
 
   def rate(from: String, to: String): Int = {
-    from == to match {
-      case true => 1
-      case false => rates(new Pair(from, to))
+    if (from == to) {
+      return 1
     }
+    rates(new Pair(from, to))
   }
 }
