@@ -6,13 +6,13 @@ class Bank(private var rates: Map[Pair, Int] = Map.empty) {
   }
 
   def addRate(from: String, to: String, rate: Int): Unit = {
-    rates += (new Pair(from, to) -> rate)
+    rates += (Pair(from, to) -> rate)
   }
 
   def rate(from: String, to: String): Int = {
     if (from == to) {
       return 1
     }
-    rates(new Pair(from, to))
+    rates(Pair(from, to))
   }
 }

@@ -9,8 +9,8 @@ class MoneyTest extends FunSuite {
 
   test("Multiplication") {
     var five: Money = Money.dollar(5)
-    assert(five.times(2) == Money.dollar(10))
-    assert(five.times(3) == Money.dollar(15))
+    assertResult(Money.dollar(10)) { five.times(2) }
+    assertResult(Money.dollar(15)) { five.times(3) }
   }
 
   test("Equality") {
@@ -20,65 +20,70 @@ class MoneyTest extends FunSuite {
   }
 
   test("Currency") {
-    assert(Money.dollar(1).currency == "USD")
-    assert(Money.franc(1).currency == "CHF")
+    assertResult("USD") { Money.dollar(1).currency }
+    assertResult("CHF") { Money.franc(1).currency }
   }
 
   test("Simple Addition") {
     val five: Money = Money.dollar(5)
     val sum: Expression = five.plus(five)
-
-    val reduced: Money = bank.reduce(sum, "USD")
-    assert(reduced == Money.dollar(10))
+    assertResult(Money.dollar(10)) {
+      bank.reduce(sum, "USD")
+    }
   }
 
   test("Plus Returns Sum") {
     val five: Money = Money.dollar(5)
     val result: Expression = five.plus(five)
     val sum: Sum = result.asInstanceOf[Sum]
-    assert(sum.augend == five)
-    assert(sum.addend == five)
+    assertResult(five) { sum.augend }
+    assertResult(five) { sum.addend }
   }
 
   test("Reduce Sum") {
     val sum: Expression = new Sum(Money.dollar(3), Money.dollar(4))
-    val result: Money = bank.reduce(sum, "USD")
-    assert(result == Money.dollar(7))
+    assertResult(Money.dollar(7)) {
+      bank.reduce(sum, "USD")
+    }
   }
 
   test("Reduce Money") {
-    val result: Money = bank.reduce(Money.dollar(1), "USD")
-    assert(result == Money.dollar(1))
+    assertResult(Money.dollar(1)) {
+      bank.reduce(Money.dollar(1), "USD")
+    }
   }
 
   test("Reduce Money Different Currency") {
     bank.addRate("CHF", "USD", 2)
-
-    val result: Money = bank.reduce(Money.franc(2), "USD")
-    assert(result == Money.dollar(1))
+    assertResult(Money.dollar(1)) {
+      bank.reduce(Money.franc(2), "USD")
+    }
   }
 
   test("Identity Rate") {
-    assert(new Bank().rate("USD", "USD") == 1)
+    assertResult(1) { bank.rate("USD", "USD") }
   }
 
   test("Mixed Addition") {
     bank.addRate("CHF", "USD", 2)
-    val result: Money = bank.reduce(fiveBucks.plus(tenFrancs), "USD")
-    assert(result == Money.dollar(10))
+    assertResult(Money.dollar(10)) {
+      bank.reduce(fiveBucks.plus(tenFrancs), "USD")
+    }
   }
 
   test("Sum Plus Money") {
     bank.addRate("CHF", "USD", 2)
     val sum: Expression = new Sum(fiveBucks, tenFrancs).plus(fiveBucks)
-    val result: Money = bank.reduce(sum, "USD")
-    assert(result == Money.dollar(15))
+    assertResult(Money.dollar(15)) {
+      bank.reduce(sum, "USD")
+    }
   }
 
   test("Sum Times") {
     bank.addRate("CHF", "USD", 2)
     val sum: Expression = new Sum(fiveBucks, tenFrancs).times(2)
-    val result: Money = bank.reduce(sum, "USD")
-    assert(result == Money.dollar(20))
+    assertResult(Money.dollar(20)) {
+      bank.reduce(sum, "USD")
+    }
   }
 }
