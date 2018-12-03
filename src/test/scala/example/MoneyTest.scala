@@ -10,7 +10,7 @@ class MoneyTest extends FunSuite {
   val tenFrancs: Expression = Money.franc(10)
 
   test("Multiplication") {
-    var five: Money = Money.dollar(5)
+    val five: Money = Money.dollar(5)
     assertResult(Money.dollar(10)) { five.times(2) }
     assertResult(Money.dollar(15)) { five.times(3) }
   }
