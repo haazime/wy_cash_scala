@@ -37,9 +37,13 @@ class MoneyTest extends FunSuite {
   test("Plus Returns Sum") {
     val five: Money = Money.dollar(5)
     val result: Expression = five.plus(five)
-    val sum: Sum = result.asInstanceOf[Sum]
-    assertResult(five) { sum.augend }
-    assertResult(five) { sum.addend }
+    result match {
+      case Sum(augend, addend) =>
+        assertResult(five) { augend }
+        assertResult(five) { addend }
+      case _ =>
+        assert(false, "plus is expected to return Sum but returns other type")
+    }
   }
 
   test("Reduce Sum") {
