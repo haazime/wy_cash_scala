@@ -10,7 +10,7 @@ class MoneyTest extends FunSuite {
   val tenFrancs: Expression = Money.franc(10)
 
   test("Multiplication") {
-    val five: Money = Money.dollar(5)
+    val five = Money.dollar(5)
     assertResult(Money.dollar(10)) { five.times(2) }
     assertResult(Money.dollar(15)) { five.times(3) }
   }
@@ -27,16 +27,16 @@ class MoneyTest extends FunSuite {
   }
 
   test("Simple Addition") {
-    val five: Money = Money.dollar(5)
-    val sum: Expression = five.plus(five)
+    val five = Money.dollar(5)
+    val sum = five.plus(five)
     assertResult(Money.dollar(10)) {
       bank.reduce(sum, "USD")
     }
   }
 
   test("Plus Returns Sum") {
-    val five: Money = Money.dollar(5)
-    val result: Expression = five.plus(five)
+    val five = Money.dollar(5)
+    val result = five.plus(five)
     result match {
       case Sum(augend, addend) =>
         assertResult(five) { augend }
@@ -47,7 +47,7 @@ class MoneyTest extends FunSuite {
   }
 
   test("Reduce Sum") {
-    val sum: Expression = new Sum(Money.dollar(3), Money.dollar(4))
+    val sum = Sum(Money.dollar(3), Money.dollar(4))
     assertResult(Money.dollar(7)) {
       bank.reduce(sum, "USD")
     }
@@ -76,14 +76,14 @@ class MoneyTest extends FunSuite {
   }
 
   test("Sum Plus Money") {
-    val sum: Expression = new Sum(fiveBucks, tenFrancs).plus(fiveBucks)
+    val sum = Sum(fiveBucks, tenFrancs).plus(fiveBucks)
     assertResult(Money.dollar(15)) {
       bank.reduce(sum, "USD")
     }
   }
 
   test("Sum Times") {
-    val sum: Expression = new Sum(fiveBucks, tenFrancs).times(2)
+    val sum = Sum(fiveBucks, tenFrancs).times(2)
     assertResult(Money.dollar(20)) {
       bank.reduce(sum, "USD")
     }
